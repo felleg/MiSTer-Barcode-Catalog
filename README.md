@@ -42,19 +42,19 @@ The format must match the following example:
 
 ```csv
 GAME_NAME|CATEGORY|CORE|GAME_PATH|ARTWORK_PATH|BARCODE|METADATA
-Atomic Runner|Data East|GENESIS|1 US - A-F/Atomic Runner (USA).md|atomic-runner.jpg|013252014046|"1992, Run & Gun. Possibly my favorite game on Sega's Genesis."
-Einhander|Shmups|PSX|Einhander (USA).cue|einhander.jpg|711719424321|"1998, made by famous RPG makers SquareSoft. Possibly my favorite ambiance in a shmup."
+Data East|GENESIS|1 US - A-F/Atomic Runner (USA).md||atomic-runner.jpg|013252014046|"1992, Run & Gun. Possibly my favorite game on Sega's Genesis."
+Shmups|PSX|Einhander (USA).cue||einhander.jpg|711719424321|"1998, made by famous RPG makers SquareSoft. Possibly my favorite ambiance in a shmup."
 ```
 
 Here is how to use these fields:
-- `GAME_NAME`: The name of the game, as it should appear in the catalog
 - `CATEGORY`: In which section of the catalog this game should appear
 - `CORE`: The MiSTer core that can launch this game. For the list of valid MiSTer cores, run this command on your MiSTer (requires the `mbc` dependency documented above): `mbc list_core`.
   - Note: For `mbc`, the `CORE` value is case-sensitive. Make sure to write it as it appears when you run `mbc list_core`.
 - `GAME_PATH`: The path of the game under the `/media/fat/games/XXXX` folder matching the specified `CORE`. For example, if a row has `CORE=GENESIS`, and `GAME_PATH=sonic.md`, the program will reconstruct the full game path as `/media/fat/games/Genesis/sonic.md`.
   - Note: The capitalization of the folder doesn't have to match that of the core, as in the example provided here. This mapping is handled automatically by the program.
+ - `GAME_NAME`: (Optional) The game name as it should appear in the catalog. If left blank, `catalog.py` will infer the game name from its `GAME_PATH`.
  - `ARTWORK_PATH`: The path to the image (whitin the `artwork` folder) that represents the game.
- - `BARCODE`: A UPC or EAN string of numbers that will be read by a barcode scanner. If left blank, the program will generate a unique dummy barcode for your convenience.
+ - `BARCODE`: (Optional) A UPC or EAN string of numbers that will be read by a barcode scanner. If left blank, the program will generate a unique dummy barcode for your convenience.
  - `METADATA`: Any additional info or comment that should appear with the game in the catalog.
  
 # Usage
