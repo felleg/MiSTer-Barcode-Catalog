@@ -41,9 +41,9 @@ You must write a csv file (e.g. my-games.csv) that will match UPC codes and game
 The format must match the following example:
 
 ```csv
-CATEGORY|CORE|GAME_PATH|GAME_NAME|ARTWORK_PATH|BARCODE|METADATA
-Data East|GENESIS|1 US - A-F/Atomic Runner (USA).md||atomic-runner.jpg|013252014046|"1992, Run & Gun. Possibly my favorite game on Sega's Genesis."
-Shmups|PSX|Einhander (USA).cue||einhander.jpg|711719424321|"1998, made by famous RPG makers SquareSoft. Possibly my favorite ambiance in a shmup."
+CATEGORY,CORE,GAME_PATH,GAME_NAME,ARTWORK_PATH,BARCODE,METADATA
+Data East,GENESIS,1 US - A-F/Atomic Runner (USA).md,,atomic-runner.jpg,013252014046,"1992, Run & Gun. Possibly my favorite game on Sega's Genesis."
+Shmups,PSX,Einhander (USA).cue,,einhander.jpg,711719424321,"1998, made by famous RPG makers SquareSoft. Possibly my favorite ambiance in a shmup."
 ```
 
 Here is how to use these fields:
@@ -52,6 +52,7 @@ Here is how to use these fields:
   - Note: For `mbc`, the `CORE` value is case-sensitive. Make sure to write it as it appears when you run `mbc list_core`.
 - `GAME_PATH`: The path of the game under the `/media/fat/games/XXXX` folder matching the specified `CORE`. For example, if a row has `CORE=GENESIS`, and `GAME_PATH=sonic.md`, the program will reconstruct the full game path as `/media/fat/games/Genesis/sonic.md`.
   - Note: The capitalization of the folder doesn't have to match that of the core, as in the example provided here. This mapping is handled automatically by the program.
+  - Note2: Watch out for game paths that contain commas. Make sure to put these paths between `""` quotes. E.g. `"ESWAT (USA, Europe).md"`
  - `GAME_NAME`: (Optional) The game name as it should appear in the catalog. If left blank, `catalog.py` will infer the game name from its `GAME_PATH`.
  - `ARTWORK_PATH`: The path to the image (whitin the `artwork` folder) that represents the game.
  - `BARCODE`: (Optional) A UPC or EAN string of numbers that will be read by a barcode scanner. If left blank, the program will generate a unique dummy barcode for your convenience.
