@@ -54,7 +54,7 @@ Here is how to use these fields:
 - `GAME_PATH`: The path of the game under the `/media/fat/games/XXXX` folder matching the specified `CORE`. For example, if a row has `CORE=GENESIS`, and `GAME_PATH=sonic.md`, the program will reconstruct the full game path as `/media/fat/games/Genesis/sonic.md`.
   - Note: The capitalization of the folder doesn't have to match that of the core, as in the example provided here. This mapping is handled automatically by the program.
  - `ARTWORK_PATH`: The path to the image (whitin the `artwork` folder) that represents the game.
- - `BARCODE`: A UPC or EAN string of numbers that will be read by a barcode scanner.
+ - `BARCODE`: A UPC or EAN string of numbers that will be read by a barcode scanner. If left blank, the program will generate a unique dummy barcode for your convenience.
  - `METADATA`: Any additional info or comment that should appear with the game in the catalog.
  
 # Usage
