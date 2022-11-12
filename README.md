@@ -41,13 +41,13 @@ You must write a csv file (e.g. my-games.csv) that will match UPC codes and game
 The format must match the following example:
 
 ```csv
-GAME_NAME|CATEGORY|CORE|GAME_PATH|ARTWORK_PATH|BARCODE|METADATA
+CATEGORY|CORE|GAME_PATH|GAME_NAME|ARTWORK_PATH|BARCODE|METADATA
 Data East|GENESIS|1 US - A-F/Atomic Runner (USA).md||atomic-runner.jpg|013252014046|"1992, Run & Gun. Possibly my favorite game on Sega's Genesis."
 Shmups|PSX|Einhander (USA).cue||einhander.jpg|711719424321|"1998, made by famous RPG makers SquareSoft. Possibly my favorite ambiance in a shmup."
 ```
 
 Here is how to use these fields:
-- `CATEGORY`: In which section of the catalog this game should appear
+- `CATEGORY`: (Optional) In which section of the catalog this game should appear. If left blank, will be categorized as "Unsorted".
 - `CORE`: The MiSTer core that can launch this game. For the list of valid MiSTer cores, run this command on your MiSTer (requires the `mbc` dependency documented above): `mbc list_core`.
   - Note: For `mbc`, the `CORE` value is case-sensitive. Make sure to write it as it appears when you run `mbc list_core`.
 - `GAME_PATH`: The path of the game under the `/media/fat/games/XXXX` folder matching the specified `CORE`. For example, if a row has `CORE=GENESIS`, and `GAME_PATH=sonic.md`, the program will reconstruct the full game path as `/media/fat/games/Genesis/sonic.md`.
