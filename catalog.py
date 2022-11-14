@@ -122,8 +122,12 @@ def main():
 
       # Loop over games inside a category
       for index, row in subdf.iterrows():
-        artwork_path = "![]("+ARTWORK_FOLDER+"/"+row.ARTWORK_PATH+"){ height=100px }" if len(row.ARTWORK_PATH) > 0 else ""
+        artwork_path = "![]("+ARTWORK_FOLDER+"/"+row.ARTWORK_PATH+"){ height=80px }" if len(row.ARTWORK_PATH) > 0 else ""
         barcode_path = ""
+        if len(row.BARCODE) < 12:
+          # In case the stupid csv edit program removed leading 0's
+          row.BARCODE = row.BARCODE.zfill(12)
+
         if len(row.BARCODE) == 12:
           barcode_gen = barcode.get_barcode_class('upca')
           barcode_path = barcode_gen(row.BARCODE,

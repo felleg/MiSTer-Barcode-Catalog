@@ -24,8 +24,10 @@ GAMES_PATH = {
     "NEOGEO": "/media/fat/games/NEOGEO/",
     "ARCADE": "/media/fat/_Arcade/",
     "SMS": "/media/fat/games/SMS/Master\ System/",
-    "SMS.GG": "/media/fat/games/SMS/Game Gear/",
-    "SNES": "/media/fat/games/SNES/"
+    "SMS.GG": "/media/fat/games/SMS/Game\ Gear/",
+    "SNES": "/media/fat/games/SNES/",
+    "GAMEBOY": "/media/fat/games/GAMEBOY/",
+    "GAMEBOY.COL": "/media/fat/games/GAMEBOY/",
     }
 MISTER_IP_ADDRESS=sys.argv[2]
 
@@ -54,7 +56,17 @@ def main():
           print(os.path.splitext(os.path.basename(found.GAME_PATH.values[0]))[0])
           load_game(found.reset_index(drop=True))
         elif len(found) == 0:
-          print("No matching game for", barcode)
+          # Try once more to find a match, but removing leading zeroes
+          # I noticed that my csv edit program very stupidly removes leading
+          # zeroes every time I open my csv file. This ensures I don't have to
+          # fix missing leading 0 errors.
+          found = game_db.loc[game_db.BARCODE == barcode[1:]]
+          if len(found) == 1:
+            print(os.path.splitext(os.path.basename(found.GAME_PATH.values[0]))[0])
+            load_game(found.reset_index(drop=True))
+
+          else:
+            print("No matching game for", barcode)
         elif len(found) >1 :
           print("Error: Multiple games have the same barcode:",
               found)
@@ -70,6 +82,7 @@ def load_game(game):
       game.GAME_PATH[0].replace(" ", "\\ ").replace("(","\(").replace(")","\)"))
     cmd_core = "!direct" if game.CORE[0].upper() == "ARCADE" else game.CORE[0]
     cmd=f"/media/fat/Scripts/.barcoderattler/mbc load_rom {game.CORE[0]} {path}"
+    #print("@@@", cmd)
     sh_cmd=f"ssh {MISTER_USER}@{MISTER_IP_ADDRESS} '{cmd}'"
     #print(sh_cmd)
     # Launch the game over SSH
