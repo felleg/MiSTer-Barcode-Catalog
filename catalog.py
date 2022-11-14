@@ -89,6 +89,8 @@ def main():
     if row.BARCODE == "":
       df.loc[index, "BARCODE"] = GenCustomBarcode(df.BARCODE)
 
+  df.loc[df["CATEGORY"] == "", "CATEGORY"] = "Other"
+
   if args.save_custom_barcodes_to_csv is True:
     df.to_csv(GAME_CSV, index=False)
 
@@ -106,14 +108,22 @@ def main():
   for category in df.CATEGORY.sort_values().unique():
     with open(output_md, "a") as f:
       f.write(f"# {category}\n\n")
-      f.write("Game Name | Image | Info | Barcode\n")
-      f.write("---|---|-----|---\n")
+      f.write("Game Name | Image | Barcode | Info\n")
+      f.write("---|---|---|-----\n")
 
-      subdf = df[df.CATEGORY == category]
+      subdf = df[df.CATEGORY == category].copy()
+
+      # Extract game names from game path (to allow sorting in catalog
+      # by game name)
+      for index, row in subdf.iterrows():
+        if row.GAME_NAME == "":
+          subdf.loc[index, "GAME_NAME"] = os.path.splitext(os.path.basename(row.GAME_PATH))[0]
+      subdf.sort_values(by="GAME_NAME", inplace=True)
 
       # Loop over games inside a category
       for index, row in subdf.iterrows():
         artwork_path = "![]("+ARTWORK_FOLDER+"/"+row.ARTWORK_PATH+"){ height=100px }" if len(row.ARTWORK_PATH) > 0 else ""
+        barcode_path = ""
         if len(row.BARCODE) == 12:
           barcode_gen = barcode.get_barcode_class('upca')
           barcode_path = barcode_gen(row.BARCODE,
@@ -128,8 +138,8 @@ def main():
         game_name = os.path.splitext(os.path.basename(row.GAME_PATH))[0] if len(row.GAME_NAME) == 0 else row.GAME_NAME
         f.write(game_name + "|" + \
             artwork_path + "|" + \
-            row.METADATA + "|" + \
-            "![]("+barcode_path+"){ width=150px }\n")
+            "![]("+barcode_path+"){ width=150px } |" + \
+            row.METADATA + "\n")
       f.write("\n")
   subprocess.run(["pandoc", "-s", "-o", OUTPUT_PDF, output_md])
   print("Generated", OUTPUT_PDF, "! :)")
