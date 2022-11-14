@@ -109,7 +109,7 @@ def main():
     with open(output_md, "a") as f:
       f.write(f"# {category}\n\n")
       f.write("Game Name | Image | Barcode | Info\n")
-      f.write("---|---|---|-----\n")
+      f.write("-|-|-|-\n")
 
       subdf = df[df.CATEGORY == category].copy()
 

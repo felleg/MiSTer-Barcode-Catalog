@@ -20,8 +20,12 @@ GAMES_PATH = {
     "NES": "/media/fat/games/NES/",
     "PSX": "/media/fat/games/PSX/",
     "TGFX16": "/media/fat/games/TGFX16/",
+    "TGFX16-CD": "/media/fat/games/TGFX16-CD/",
     "NEOGEO": "/media/fat/games/NEOGEO/",
     "ARCADE": "/media/fat/_Arcade/",
+    "SMS": "/media/fat/games/SMS/Master\ System/",
+    "SMS.GG": "/media/fat/games/SMS/Game Gear/",
+    "SNES": "/media/fat/games/SNES/"
     }
 MISTER_IP_ADDRESS=sys.argv[2]
 
@@ -42,18 +46,23 @@ def main():
 
     GAME_DB_FILENAME = sys.argv[1]
     while True:
-      barcode = input("> ")
-      game_db = pd.read_csv(GAME_DB_FILENAME, dtype=str)
-      found = game_db.loc[game_db.BARCODE == barcode]
-      if len(found) == 1:
-        load_game(found.reset_index(drop=True))
-      elif len(found) == 0:
-        print("No matching game for", barcode)
-      elif len(found) >1 :
-        print("Error: Multiple games have the same barcode:",
-            found)
-      else:
-        print("This is an uncaught error. Here is what I found when I searched for your barcode:", found)
+      try:
+        barcode = input("> ")
+        game_db = pd.read_csv(GAME_DB_FILENAME, dtype=str)
+        found = game_db.loc[game_db.BARCODE == barcode]
+        if len(found) == 1:
+          print(os.path.splitext(os.path.basename(found.GAME_PATH.values[0]))[0])
+          load_game(found.reset_index(drop=True))
+        elif len(found) == 0:
+          print("No matching game for", barcode)
+        elif len(found) >1 :
+          print("Error: Multiple games have the same barcode:",
+              found)
+        else:
+          print("This is an uncaught error. Here is what I found when I searched for your barcode:", found)
+      except Exception as e:
+        print("Did you map a directory for this console?")
+        print(e)
 
 def load_game(game):
     MISTER_USER="root"
