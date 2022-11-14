@@ -12,8 +12,9 @@ You will find two programs in this repository:
 On your local machine (e.g. PC, Raspberry Pi, etc.), install dependencies by running:
 
 ```bash
-sudo apt update && sudo apt install python3 python3-pip
-pip3 install python-barcode pandas
+sudo apt update && sudo apt install python3 python3-pip pandoc
+sudo apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended
+pip3 install argparse python-barcode pandas pillow
 ```
 
 ## MiSTer
@@ -76,8 +77,14 @@ The program will show a `>` symbol, and will await a barcode scan. Scan a barcod
 Launch the program by doing:
 ```bash
 GAME_CSV_FILE=#Specify the name of your game csv file here
-OUTPUT_PDF_NAME=#Specify the name of the output PDF to generate, e.g. "My-Catalog.pfg"
-python3 catalog.py $GAME_CSV_FILE $OUTPUT_PDF_NAME
+OUTPUT_PDF_NAME=#(Optional)Specify the name of the output PDF to generate, e.g. "My-Catalog.pdf". If unspecified, will default to output.pdf
+ARTWORK_FOLDER=#(Optional) The folder that contains the artwork for your games. Defaults to "artwork".
+BARCODES=#(Optional) The folder that contains the output barcode images. Defaults to "barcodes".
+python3 catalog.py $GAME_CSV_FILE --output_pdf $OUTPUT_PDF_NAME --artwork $ARTWORK_FOLDER --barcodes $BARCODES
 
-Generated My-Catalog.pdf! :)
+Generated My-Catalog.pdf ! :)
+
+# Another example of how I usually call the code
+python3 catalog.py ../game-database/game-database.csv --artwork ../game-database/artwork/ --update-csv
 ```
+

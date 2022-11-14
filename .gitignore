@@ -1,0 +1,7 @@
+artwork/*.jpg
+artwork/*.jpeg
+artwork/*.png
+barcodes/*.png
+*.csv
+output.pdf
+.output.md
