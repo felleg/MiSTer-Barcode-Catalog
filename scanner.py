@@ -16,20 +16,23 @@ import subprocess
 # the Core name, so we create this mapping here to avoid having to
 # rewrite the path to the game folder in the game database over and over
 GAMES_PATH = {
+    "ARCADE": "/media/fat/_Arcade/",
+    "GAMEBOY": "/media/fat/games/GAMEBOY/",
+    "GAMEBOY.COL": "/media/fat/games/GAMEBOY/",
+    "GBA": "/media/fat/games/GBA",
     "GENESIS": "/media/fat/games/Genesis/",
+    "NEOGEO": "/media/fat/games/NEOGEO/",
     "NES": "/media/fat/games/NES/",
     "PSX": "/media/fat/games/PSX/",
-    "TGFX16": "/media/fat/games/TGFX16/",
-    "TGFX16-CD": "/media/fat/games/TGFX16-CD/",
-    "NEOGEO": "/media/fat/games/NEOGEO/",
-    "ARCADE": "/media/fat/_Arcade/",
+    "SATURN": "/media/fat/games/SATURN",
     "SMS": "/media/fat/games/SMS/Master\ System/",
     "SMS.GG": "/media/fat/games/SMS/Game\ Gear/",
     "SNES": "/media/fat/games/SNES/",
-    "GAMEBOY": "/media/fat/games/GAMEBOY/",
-    "GAMEBOY.COL": "/media/fat/games/GAMEBOY/",
+    "TGFX16": "/media/fat/games/TGFX16/",
+    "TGFX16-CD": "/media/fat/games/TGFX16-CD/",
     "WONDERSWAN.COL": "/media/fat/games/WonderSwan",
-    "GBA": "/media/fat/games/GBA",
+    "S32X": "/media/fat/games/S32X",
+    "MEGACD": "/media/fat/games/MegaCD",
     }
 MISTER_IP_ADDRESS=sys.argv[2]
 
