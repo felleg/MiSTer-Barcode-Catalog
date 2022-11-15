@@ -28,6 +28,7 @@ GAMES_PATH = {
     "SNES": "/media/fat/games/SNES/",
     "GAMEBOY": "/media/fat/games/GAMEBOY/",
     "GAMEBOY.COL": "/media/fat/games/GAMEBOY/",
+    "WONDERSWAN.COL": "/media/fat/games/WonderSwan"
     }
 MISTER_IP_ADDRESS=sys.argv[2]
 

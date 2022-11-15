@@ -104,6 +104,7 @@ def main():
     f.write("header-includes: |\n")
     f.write("    \\usepackage{arxiv}\n")
     f.write("---\n")
+    f.write("\\tableofcontents\n\\newpage\n")
 
   for category in df.CATEGORY.sort_values().unique():
     with open(output_md, "a") as f:
