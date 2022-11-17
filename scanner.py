@@ -17,8 +17,8 @@ import subprocess
 # rewrite the path to the game folder in the game database over and over
 GAMES_PATH = {
     "ARCADE": "/media/fat/_Arcade/",
-    "GAMEBOY": "/media/fat/games/GAMEBOY/",
-    "GAMEBOY.COL": "/media/fat/games/GAMEBOY/",
+    "GAMEBOY": "/media/fat/games/GameBoy/",
+    "GAMEBOY.COL": "/media/fat/games/GameBoy/",
     "GBA": "/media/fat/games/GBA",
     "GENESIS": "/media/fat/games/Genesis/",
     "NEOGEO": "/media/fat/games/NEOGEO/",
@@ -83,13 +83,12 @@ def main():
 
 def load_game(game):
     MISTER_USER="root"
-    path = os.path.join(GAMES_PATH[game.CORE[0]],
-      game.GAME_PATH[0].replace(" ", "\\ ").replace("(","\(").replace(")","\)"))
+    path = os.path.join(GAMES_PATH[game.CORE[0]], game.GAME_PATH[0])
     cmd_core = "!direct" if game.CORE[0].upper() == "ARCADE" else game.CORE[0]
-    cmd=f"/media/fat/Scripts/.barcoderattler/mbc load_rom {game.CORE[0]} {path}"
-    #print("@@@", cmd)
-    sh_cmd=f"ssh {MISTER_USER}@{MISTER_IP_ADDRESS} '{cmd}'"
-    #print(sh_cmd)
+    cmd=f"/media/fat/Scripts/.barcoderattler/mbc load_rom {game.CORE[0]} \"{path}\""
+    with open("tmp_script", "w") as f:
+      f.write(cmd)
+    sh_cmd=f"scp tmp_script {MISTER_USER}@{MISTER_IP_ADDRESS}:/media/fat/Scripts/. && ssh {MISTER_USER}@{MISTER_IP_ADDRESS} 'bash /media/fat/Scripts/tmp_script'"
     # Launch the game over SSH
     subprocess.Popen(sh_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
 

@@ -5,3 +5,4 @@ barcodes/*.png
 *.csv
 output.pdf
 .output.md
+tmp_script
