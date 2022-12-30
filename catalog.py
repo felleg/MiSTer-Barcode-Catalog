@@ -108,9 +108,9 @@ def main():
 
   for category in df.CATEGORY.sort_values().unique():
     with open(output_md, "a") as f:
-      f.write(f"# {category}\n\n")
-      f.write("Game Name | Image | Barcode | Info\n")
-      f.write("-|-|-|-\n")
+      f.write(f"# \Huge {category}\n\n")
+      f.write("Game Name | Image | Barcode | Year\n")
+      f.write(":---|:--:|:--:|:-:\n")
 
       subdf = df[df.CATEGORY == category].copy()
 
@@ -144,12 +144,10 @@ def main():
         f.write(game_name + "|" + \
             artwork_path + "|" + \
             "![]("+barcode_path+"){ width=150px } |" + \
-            row.METADATA + "\n")
+            row.YEAR + "\n")
       f.write("\n")
-  subprocess.run(["pandoc", "-s", "-o", OUTPUT_PDF, output_md])
+  subprocess.run(["pandoc", "-s", "--columns=10", "-o", OUTPUT_PDF, output_md])
   print("Generated", OUTPUT_PDF, "! :)")
-
-
 
 
 if __name__ == "__main__":

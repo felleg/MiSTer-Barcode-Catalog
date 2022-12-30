@@ -13,7 +13,7 @@ On your local machine (e.g. PC, Raspberry Pi, etc.), install dependencies by run
 
 ```bash
 sudo apt update && sudo apt install python3 python3-pip pandoc
-sudo apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended
+sudo apt install texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-fonts-recommended
 pip3 install argparse python-barcode pandas pillow
 ```
 
@@ -42,9 +42,9 @@ You must write a csv file (e.g. my-games.csv) that will match UPC codes and game
 The format must match the following example:
 
 ```csv
-CATEGORY,CORE,GAME_PATH,GAME_NAME,ARTWORK_PATH,BARCODE,METADATA
-Data East,GENESIS,1 US - A-F/Atomic Runner (USA).md,,atomic-runner.jpg,013252014046,"1992, Run & Gun. Possibly my favorite game on Sega's Genesis."
-Shmups,PSX,Einhander (USA).cue,,einhander.jpg,711719424321,"1998, made by famous RPG makers SquareSoft. Possibly my favorite ambiance in a shmup."
+CATEGORY,CORE,GAME_PATH,GAME_NAME,ARTWORK_PATH,BARCODE,YEAR
+Data East,GENESIS,1 US - A-F/Atomic Runner (USA).md,,atomic-runner.jpg,013252014046,1992
+Shmups,PSX,Einhander (USA).cue,,einhander.jpg,711719424321,1998
 ```
 
 Here is how to use these fields:
@@ -57,8 +57,8 @@ Here is how to use these fields:
  - `GAME_NAME`: (Optional) The game name as it should appear in the catalog. If left blank, `catalog.py` will infer the game name from its `GAME_PATH`.
  - `ARTWORK_PATH`: The path to the image (whitin the `artwork` folder) that represents the game.
  - `BARCODE`: (Optional) A UPC or EAN string of numbers that will be read by a barcode scanner. If left blank, the program will generate a unique dummy barcode for your convenience.
- - `METADATA`: Any additional info or comment that should appear with the game in the catalog.
- 
+ - `YEAR`: Release year of the game.
+
 # Usage
 
 ## scanner.py
