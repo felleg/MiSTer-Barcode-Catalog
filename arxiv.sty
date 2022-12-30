@@ -30,14 +30,9 @@
 \newcommand{\undertitle}{A Preprint}
 \newcommand{\shorttitle}{\@title}
 \AddToHook{cmd/section/before}{\clearpage}
+\usepackage{titletoc}
 
-\usepackage{fancyhdr}
-\fancyhf{}
-\pagestyle{fancy}
-\renewcommand{\headrulewidth}{0.4pt}
-\fancyheadoffset{0pt}
-\cfoot{\thepage}
-
+\dottedcontents{section}[1.5em]{\bfseries}{1.3em}{.6em}
 
 %Handling Keywords
 \def\keywordname{{\bfseries \emph{Keywords}}}%
