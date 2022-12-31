@@ -14,6 +14,7 @@ import argparse
 from barcode.writer import ImageWriter
 import subprocess
 import pandas as pd
+import datetime
 
 CUSTOM_BARCODE_COUNTER = 1
 
@@ -68,7 +69,7 @@ def GenCustomBarcode(barcode_list):
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("game_database_csv", help="The filename of the csv game database")
-  parser.add_argument("--output_pdf", help="The filename of the output pdf to generate", default="output.pdf")
+  parser.add_argument("--output_pdf", help="The filename of the output pdf to generate", default="gamelist.pdf")
   parser.add_argument("--artwork", help="Path to artwork folder", default="artwork")
   parser.add_argument("--barcodes", help="Path to output barcode images", default="barcodes")
   parser.add_argument("--update-csv",
@@ -102,9 +103,14 @@ def main():
     # Write import for latex style
     f.write("---\n")
     f.write("header-includes: |\n")
-    f.write("    \\usepackage{arxiv}\n")
+    f.write("    \\usepackage{felix-gamelist}\n")
+    f.write("    \\usepackage{soul}\n")
     f.write("---\n")
-    f.write("\\tableofcontents\n\\newpage\n")
+    f.write("\\title{Félix's games}\n")
+    f.write("\\date{" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "}\n")
+    f.write("\\maketitle\n")
+    f.write("\\tableofcontents\n")
+    f.write("\\newpage\n")
 
   for category in df.CATEGORY.sort_values().unique():
     with open(output_md, "a") as f:
@@ -141,13 +147,16 @@ def main():
                 row.BARCODE))
 
         game_name = os.path.splitext(os.path.basename(row.GAME_PATH))[0] if len(row.GAME_NAME) == 0 else row.GAME_NAME
+        if len(row.HIGHLIGHT) > 0:
+          game_name = "\\hl{\\textbf{"+game_name+"}}"
         f.write(game_name + "|" + \
             artwork_path + "|" + \
             "![]("+barcode_path+"){ width=150px } |" + \
             row.YEAR + "\n")
       f.write("\n")
-  subprocess.run(["pandoc", "-s", "--columns=10", "-o", OUTPUT_PDF, output_md])
-  print("Generated", OUTPUT_PDF, "! :)")
+  result = subprocess.run(["pandoc", "-s", "--columns=10", "-o", OUTPUT_PDF, output_md])
+  sys.exit(result.returncode)
+
 
 
 if __name__ == "__main__":

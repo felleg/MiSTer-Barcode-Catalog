@@ -58,6 +58,7 @@ Here is how to use these fields:
  - `ARTWORK_PATH`: The path to the image (whitin the `artwork` folder) that represents the game.
  - `BARCODE`: (Optional) A UPC or EAN string of numbers that will be read by a barcode scanner. If left blank, the program will generate a unique dummy barcode for your convenience.
  - `YEAR`: Release year of the game.
+ - `HIGHLIGHT`: Rows that have non-empty values in this column will have their game title highlighted in the gamelist pdf.
 
 # Usage
 
