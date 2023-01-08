@@ -1,1 +1,1 @@
-python3 scanner.py ../game-database/game-database.csv 10.0.30.152
+python3 scanner.py ../game-database/game-database.csv 192.168.86.92

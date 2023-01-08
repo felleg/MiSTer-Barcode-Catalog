@@ -106,7 +106,7 @@ def main():
     f.write("    \\usepackage{felix-gamelist}\n")
     f.write("    \\usepackage{soul}\n")
     f.write("---\n")
-    f.write("\\title{Félix's games}\n")
+    f.write("\\title{Félix's MiSTer Games}\n")
     f.write("\\date{" + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "}\n")
     f.write("\\maketitle\n")
     f.write("\\tableofcontents\n")
