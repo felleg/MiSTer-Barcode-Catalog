@@ -114,7 +114,7 @@ def main():
 
   for category in df.CATEGORY.sort_values().unique():
     with open(output_md, "a") as f:
-      f.write(f"# \Huge {category}\n\n")
+      f.write(f"# \\Huge {category}\n\n")
       f.write("Game Name | Image | Barcode | Year\n")
       f.write(":---|:--:|:--:|:-:\n")
 

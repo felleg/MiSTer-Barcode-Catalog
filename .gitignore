@@ -8,3 +8,4 @@ output.pdf
 gamelist.pdf
 .gamelist.md
 tmp_script
+*.swp
