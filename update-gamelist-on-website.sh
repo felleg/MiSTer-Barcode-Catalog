@@ -1,4 +1,4 @@
-./build-catalog.sh
+#./build-catalog.sh
 cp gamelist.pdf ~/perso/felleg.gitlab.io/static/files
 cd ~/perso/felleg.gitlab.io
 git add static/files/gamelist.pdf
